@@ -1,4 +1,4 @@
-# Text_summarization ProjEnd to end 
+# Text_summarization Project End to end 
 ## Workflows
 1. Update config.yaml
 2. Update params.yaml
