@@ -6,7 +6,6 @@ from datasets import load_dataset, load_from_disk
 from huggingface_hub import snapshot_download
 import torch
 import os
-
 class ModelTrainer:
     def __init__(self, config: ModelTrainerConfig):
         self.config = config
@@ -15,7 +14,10 @@ class ModelTrainer:
     
     def train(self):
         
-        device = "cuda" if torch.cuda.is_available() else "cpu"
+        # device = "cuda" if torch.cuda.is_available() else "cpu"
+        device = "cpu"
+        os.environ["CUDA_VISIBLE_DEVICES"] = ""
+
           # Define the path where the model should be stored
         model_path = os.path.join(self.config.root_dir, "pretrained_model")
         
@@ -57,6 +59,7 @@ class ModelTrainer:
             weight_decay=0.01, logging_steps=10,
             evaluation_strategy='steps', eval_steps=500, save_steps=1e6,
             gradient_accumulation_steps=16
+
         ) 
 
         trainer = Trainer(model=model_pegasus, args=trainer_args,
